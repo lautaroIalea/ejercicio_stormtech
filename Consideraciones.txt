@@ -1,0 +1,6 @@
+En paquete se tienen las referencias a los items a los que pertenece, cuando esto puede no ser necesario, dependiendo como se usen los modelos
+(puede no ser necesario querer ver los items o planillas a las que pertenece un paquete).
+ 
+En el modelo ItemPlanilla, lo ideal seria tener una clave primaria compuesta, entre las claves extranjera a planilla y a paquete. Como loopback 
+no soporta claves primarias compuestas (segun entiendo de la documentacion), se decidio tener un campo id en este modelo, y siempre que se 
+agregue o modifique un id dentro de itemPlanilla, se debera chequear que no exista otro item referenciando al mismo paquete y planilla.

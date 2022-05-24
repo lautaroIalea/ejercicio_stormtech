@@ -33,6 +33,15 @@ export class ItemPlanilla extends Entity {
   })
   motivo_fallo?: Motivo_fallo;
 
+  @property({
+    type: 'string',
+  })
+  paqueteId?: string;
+
+  @property({
+    type: 'string',
+  })
+  planillaId?: string;
 
   constructor(data?: Partial<ItemPlanilla>) {
     super(data);

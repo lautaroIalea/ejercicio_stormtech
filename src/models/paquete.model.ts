@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Cliente} from './cliente.model';
+import {ItemPlanilla} from './item-planilla.model';
 
 export enum Estado {
   depo = "en deposito",
@@ -68,17 +70,22 @@ export class Paquete extends Entity {
   })
   tipo?: Tipo;
 
+  @belongsTo(() => Cliente, {name: 'clientepaquete'})
+  clienteusername: string;
+
+  @hasMany(() => ItemPlanilla)
+  Items: ItemPlanilla[];
 
   constructor(data?: Partial<Paquete>) {
     super(data);
-	if (this.peso < 1000)
+    if (this.peso < 1000)
       this.tipo = Tipo.pequeño;
     else
       if (this.peso < 3000)
         this.tipo = Tipo.mediano;
       else
         this.tipo = Tipo.grande;
-	}
+  }
 }
 
 export interface PaqueteRelations {
