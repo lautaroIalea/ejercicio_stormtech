@@ -26,37 +26,6 @@ export class ItemPlanillaController {
     public itemPlanillaRepository : ItemPlanillaRepository,
   ) {}
 
-  @post('/item-planillas')
-  @response(200, {
-    description: 'ItemPlanilla model instance',
-    content: {'application/json': {schema: getModelSchemaRef(ItemPlanilla)}},
-  })
-  async create(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(ItemPlanilla, {
-            title: 'NewItemPlanilla',
-            exclude: ['id'],
-          }),
-        },
-      },
-    })
-    itemPlanilla: Omit<ItemPlanilla, 'id'>,
-  ): Promise<ItemPlanilla> {
-    return this.itemPlanillaRepository.create(itemPlanilla);
-  }
-
-  @get('/item-planillas/count')
-  @response(200, {
-    description: 'ItemPlanilla model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(
-    @param.where(ItemPlanilla) where?: Where<ItemPlanilla>,
-  ): Promise<Count> {
-    return this.itemPlanillaRepository.count(where);
-  }
 
   @get('/item-planillas')
   @response(200, {
@@ -127,17 +96,6 @@ export class ItemPlanillaController {
     itemPlanilla: ItemPlanilla,
   ): Promise<void> {
     await this.itemPlanillaRepository.updateById(id, itemPlanilla);
-  }
-
-  @put('/item-planillas/{id}')
-  @response(204, {
-    description: 'ItemPlanilla PUT success',
-  })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() itemPlanilla: ItemPlanilla,
-  ): Promise<void> {
-    await this.itemPlanillaRepository.replaceById(id, itemPlanilla);
   }
 
   @del('/item-planillas/{id}')

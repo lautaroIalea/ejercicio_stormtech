@@ -4,3 +4,14 @@ En paquete se tienen las referencias a los items a los que pertenece, cuando est
 En el modelo ItemPlanilla, lo ideal seria tener una clave primaria compuesta, entre las claves extranjera a planilla y a paquete. Como loopback 
 no soporta claves primarias compuestas (segun entiendo de la documentacion), se decidio tener un campo id en este modelo, y siempre que se 
 agregue o modifique un id dentro de itemPlanilla, se debera chequear que no exista otro item referenciando al mismo paquete y planilla.
+
+Defini una relacion hasone entre paquete y cliente, donde todo paquete tiene un cliente. Sin embargo en este valor se puede poner cualquier string,
+no se chequea que exista una instancia del modelo cliente con ese username en la base de datos. Esto es porque la base de datos que defini es una
+local, que guarda los datos en un archivo, y es noSQL. Tambien se puede agregar codigo en las llamadas a API que creen o modifiquen el username de 
+un paquete para controlar que se cumpla la clave extranjera. Lo mismo se da para todas las otras relaciones, ya que es a modo de ejercicio no creo
+que genere ningun problema, ya que aun sirve para navegar las relaciones. (Chequear si cambiando los datasources y repositorys por unos SQL se puede
+arreglar sin modificar mucho los controllers o servicios)
+
+La funcionalidad de cargar de un csv esta realizada rusticamente, por ejemplo, no chequea la integridad del archivo previo a la carga de los paquetes,
+ni realiza un rollback en caso de encontrar un error. Entonces, un archivo que contiene un error cargara los paquetes previos a la linea problematica,
+cuando no deberia modificar la base de datos.

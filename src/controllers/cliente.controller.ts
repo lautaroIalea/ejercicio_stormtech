@@ -129,17 +129,6 @@ export class ClienteController {
     await this.clienteRepository.updateById(id, cliente);
   }
 
-  @put('/cliente/{id}')
-  @response(204, {
-    description: 'Cliente PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() cliente: Cliente,
-  ): Promise<void> {
-    await this.clienteRepository.replaceById(id, cliente);
-  }
-
   @del('/cliente/{id}')
   @response(204, {
     description: 'Cliente DELETE success',

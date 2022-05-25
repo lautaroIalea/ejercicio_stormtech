@@ -129,17 +129,6 @@ export class PaqueteController {
     await this.paqueteRepository.updateById(id, paquete);
   }
 
-  @put('/paquete/{id}')
-  @response(204, {
-    description: 'Paquete PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() paquete: Paquete,
-  ): Promise<void> {
-    await this.paqueteRepository.replaceById(id, paquete);
-  }
-
   @del('/paquete/{id}')
   @response(204, {
     description: 'Paquete DELETE success',
