@@ -51,7 +51,6 @@ export class LogisticaApp extends BootMixin(
     // Upload files to `dist/.sandbox` by default
     destination = destination ?? path.join(__dirname, '../CSV');
     this.bind(STORAGE_DIRECTORY).to(destination);
-	console.log(destination);
     const multerOptions: multer.Options = {
       storage: multer.diskStorage({
         destination,

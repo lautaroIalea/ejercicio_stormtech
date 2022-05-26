@@ -1,0 +1,510 @@
+{
+	"info": {
+		"_postman_id": "efc67edc-5ea4-46af-acf9-a4f1a00d39da",
+		"name": "Ejercicio_stormtech",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9154105"
+	},
+	"item": [
+		{
+			"name": "Post Cliente lau",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"lau\",\r\n  \"nombre\": \"Lautaro\",\r\n  \"fecha_creacion\": \"2022-05-26T20:33:31.681Z\",\r\n  \"email\": \"li@gmail.com\",\r\n  \"telefono\": 2233445566,\r\n  \"premium\": true,\r\n  \"direccion\": \"Belgrano\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Cliente pepe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"pepe\",\r\n  \"nombre\": \"Pedro Rodriguez Gutierrez Gimenez De La Cruz\",\r\n  \"fecha_creacion\": \"2022-05-26T20:33:31.681Z\",\r\n  \"email\": \"prggdlc@gmail.com\",\r\n  \"telefono\": 11111111,\r\n  \"premium\": true,\r\n  \"direccion\": \"Pinto 550\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Paquete 1 - lau",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tracking\": \"1\",\r\n  \"direccion_dest\": \"Falsa 123\",\r\n  \"telefono_dest\": 1234,\r\n  \"nombre_dest\": \"john doe\",\r\n  \"peso\": 100,\r\n  \"altura\": 100,\r\n  \"estado\": \"en deposito\",\r\n  \"clienteId\": \"lau\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/paquete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"paquete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Paquete 2 - lau",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tracking\": \"2\",\r\n  \"direccion_dest\": \"Falsa 123\",\r\n  \"telefono_dest\": 1234,\r\n  \"nombre_dest\": \"john doe\",\r\n  \"peso\": 1500,\r\n  \"altura\": 100,\r\n  \"estado\": \"en deposito\",\r\n  \"clienteId\": \"lau\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/paquete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"paquete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Paquete 3 - pepe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tracking\": \"3\",\r\n  \"direccion_dest\": \"Falsa 123\",\r\n  \"telefono_dest\": 1234,\r\n  \"nombre_dest\": \"john doe\",\r\n  \"peso\": 5500,\r\n  \"altura\": 100,\r\n  \"estado\": \"en deposito\",\r\n  \"clienteId\": \"pepe\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/paquete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"paquete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Paquete 3 - pepe -> lau",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"clienteId\": \"lau\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/paquete/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"paquete",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Clientes-Paquetes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cliente?filter={\"include\": [{\"relation\": \"paquetes\"}]}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cliente"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"include\": [{\"relation\": \"paquetes\"}]}"
+						}
+					]
+				},
+				"description": "Aca se puede observar como los paquetes son reconocidos como parte del cliente con username lau, y como se aplico el tipo de acuerdo al peso de cada paquete. se incluye el filtro \"include\" : \\[{\"relation\": \"paquetes\"}\\] para obtener los clientes con sus paquetes relacionados."
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Paquete 1 Tipo P -> G",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"peso\": 11111\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/paquete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"paquete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Paquete 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/paquete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"paquete",
+						"1"
+					]
+				},
+				"description": "Al modificar el peso del paquete, se modifico tambien su tipo."
+			},
+			"response": []
+		},
+		{
+			"name": "Post Planilla 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fecha\": \"2022-05-26T21:16:27.499Z\",\r\n  \"descripcion\": \"La primer planilla\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/planilla",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Planilla 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fecha\": \"2022-05-26T21:16:27.499Z\",\r\n  \"descripcion\": \"La segunda planilla\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/planilla",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Planilla 1 <- Item -> Paquete 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/planilla/1/item/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla",
+						"1",
+						"item",
+						"1"
+					]
+				},
+				"description": "Creo un itemplanilla que indica que paquete 1 es item de la planilla 1. Elegi usar un endpoint del tipo /planilla/{idpla}/item/{idpaq} por comodidad de uso."
+			},
+			"response": []
+		},
+		{
+			"name": "Planilla 1 <- Item -> Paquete 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/planilla/1/item/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla",
+						"1",
+						"item",
+						"2"
+					]
+				},
+				"description": "Se puede ver que la posicion del item planilla creado es 2 al ser el segundo item de esta planilla."
+			},
+			"response": []
+		},
+		{
+			"name": "Planilla 2 <- Item -> Paquete 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/planilla/2/item/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla",
+						"2",
+						"item",
+						"1"
+					]
+				},
+				"description": "Se puede ver que la posicion del item planilla creado es 1, ya que es el primer item de esta planilla"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Planilla-Paquetes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/planilla?filter={\"include\": [{\"relation\": \"paquetes\"}]}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"include\": [{\"relation\": \"paquetes\"}]}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Planilla 2 - Items a distribucion",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/planilla/items/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla",
+						"items",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Planilla-Paquetes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/planilla?filter={\"include\": [{\"relation\": \"paquetes\"}]}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"include\": [{\"relation\": \"paquetes\"}]}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cargar del csv a planilla 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/loadto/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"loadto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Planilla1-Paquetes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/planilla/1?filter={\"include\": [{\"relation\": \"paquetes\"}]}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"planilla",
+						"1"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"include\": [{\"relation\": \"paquetes\"}]}"
+						}
+					]
+				},
+				"description": "Se pueden ver los paquetes cargados por el csv."
+			},
+			"response": []
+		}
+	]
+}

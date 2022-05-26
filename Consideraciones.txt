@@ -14,3 +14,8 @@ La funcionalidad de cargar de un csv esta realizada rusticamente, por ejemplo, n
 ni realiza un rollback en caso de encontrar un error. Entonces, un archivo que contiene un error cargara los paquetes previos a la linea problematica,
 cuando no deberia modificar la base de datos. Tambien, esta programado para levantar el archivo Paquetes.csv dentro de la carpeta CSV del directorio
 del proyecto. Desde localhost:3000 existe una interfaz para poder subir este csv remotamente.
+
+En el modelo ItemPlanilla existe una posicion. Asumo que esa posicion es la posicion que tiene dentro de la planilla. Para cumplir con esto, chequeo
+la cantidad de items que tiene la planilla al momento de agregar un nuevo item, asi, la posicion se vuelve el conteo mas uno. Sin embargo falta 
+controlar la posicion en el caso de borrado o modificado de idplanilla dentro de ItemPlanilla. Cuando se borra o modifica un item, se debe modificar
+el item con la posicion mas alta, a la posicion del que se borro, siempre y cuando el eliminado o modificado no haya sido el de la posicion mas alta.

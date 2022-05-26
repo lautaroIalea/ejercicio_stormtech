@@ -1,14 +1,15 @@
 import {inject} from '@loopback/core';
 import {repository,} from '@loopback/repository';
 import {post, Request, requestBody, Response, RestBindings, param,} from '@loopback/rest';
-import {PlanillaRepository} from '../repositories';
+import {ItemPlanillaRepository, PlanillaRepository} from '../repositories';
 import {Planilla} from '../models';
 
 const csv = require('csv-parser');
 const fs = require('fs');
 
 export class CSVController {
-  constructor(@repository(PlanillaRepository) private planillaRepository : PlanillaRepository) {}
+  constructor(@repository(PlanillaRepository) private planillaRepository : PlanillaRepository, 
+  @repository(ItemPlanillaRepository) private itemPlanillaRepository : ItemPlanillaRepository) {}
   @post('/loadto/{id}', {
     responses: {
       200: {
