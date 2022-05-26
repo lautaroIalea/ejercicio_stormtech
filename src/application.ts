@@ -11,7 +11,7 @@ import path from 'path';
 import {MySequence} from './sequence';
 import multer from 'multer';
 import {FILE_UPLOAD_SERVICE, STORAGE_DIRECTORY} from './keys';
-
+import {PlanillaService} from './services';
 export {ApplicationConfig};
 
 export class LogisticaApp extends BootMixin(
@@ -23,8 +23,12 @@ export class LogisticaApp extends BootMixin(
     // Set up the custom sequence
     this.sequence(MySequence);
 
+	this.bind('service.PlanillaService').toClass(PlanillaService);
+
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
+
+	this.configureFileUpload(options.fileStorageDirectory);
 
     // Customize @loopback/rest-explorer configuration here
     this.configure(RestExplorerBindings.COMPONENT).to({
@@ -43,16 +47,17 @@ export class LogisticaApp extends BootMixin(
       },
     };
   }
-    protected configureFileUpload(destination?: string) {
+      protected configureFileUpload(destination?: string) {
     // Upload files to `dist/.sandbox` by default
-    destination = destination ?? path.join(__dirname, '../.sandbox');
+    destination = destination ?? path.join(__dirname, '../CSV');
     this.bind(STORAGE_DIRECTORY).to(destination);
+	console.log(destination);
     const multerOptions: multer.Options = {
       storage: multer.diskStorage({
         destination,
         // Use the original file name as is
         filename: (req, file, cb) => {
-          cb(null, file.originalname);
+          cb(null, "Paquetes.csv");
         },
       }),
     };

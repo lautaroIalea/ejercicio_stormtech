@@ -1,5 +1,6 @@
 import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {Cliente} from './cliente.model';
+import {Planilla} from './planilla.model';
 import {ItemPlanilla} from './item-planilla.model';
 
 export enum Estado {
@@ -70,11 +71,11 @@ export class Paquete extends Entity {
   })
   tipo?: Tipo;
 
-  @belongsTo(() => Cliente, {name: 'clientepaquete'})
-  clienteusername: string;
+  @belongsTo(() => Cliente)
+  clienteId: string;
 
-  @hasMany(() => ItemPlanilla)
-  Items: ItemPlanilla[];
+  @hasMany(() => Planilla, {through: {model: () => ItemPlanilla}})
+  planillas: Planilla[];
 
   constructor(data?: Partial<Paquete>) {
     super(data);

@@ -36,12 +36,12 @@ export class ItemPlanilla extends Entity {
   @property({
     type: 'string',
   })
-  paqueteId?: string;
+  planillaId?: string;
 
   @property({
     type: 'string',
   })
-  planillaId?: string;
+  paqueteId?: string;
 
   constructor(data?: Partial<ItemPlanilla>) {
     super(data);

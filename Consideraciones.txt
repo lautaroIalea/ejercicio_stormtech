@@ -1,17 +1,16 @@
-En paquete se tienen las referencias a los items a los que pertenece, cuando esto puede no ser necesario, dependiendo como se usen los modelos
-(puede no ser necesario querer ver los items o planillas a las que pertenece un paquete).
- 
-En el modelo ItemPlanilla, lo ideal seria tener una clave primaria compuesta, entre las claves extranjera a planilla y a paquete. Como loopback 
-no soporta claves primarias compuestas (segun entiendo de la documentacion), se decidio tener un campo id en este modelo, y siempre que se 
-agregue o modifique un id dentro de itemPlanilla, se debera chequear que no exista otro item referenciando al mismo paquete y planilla.
+En el modelo ItemPlanilla, lo ideal seria tener una clave primaria compuesta, entre las claves extranjeras a planilla y a paquete. Como loopback 
+no soporta claves primarias compuestas (segun entiendo de la documentacion), se decidio tener un campo id en este modelo, y siempre que se agregue
+o modifique una clave extranjera dentro de itemPlanilla, se debera chequear que no exista otro item referenciando al mismo paquete y planilla. Caso
+contrario, el servidor devolvera un mensaje de error.
 
-Defini una relacion hasone entre paquete y cliente, donde todo paquete tiene un cliente. Sin embargo en este valor se puede poner cualquier string,
-no se chequea que exista una instancia del modelo cliente con ese username en la base de datos. Esto es porque la base de datos que defini es una
-local, que guarda los datos en un archivo, y es noSQL. Tambien se puede agregar codigo en las llamadas a API que creen o modifiquen el username de 
-un paquete para controlar que se cumpla la clave extranjera. Lo mismo se da para todas las otras relaciones, ya que es a modo de ejercicio no creo
-que genere ningun problema, ya que aun sirve para navegar las relaciones. (Chequear si cambiando los datasources y repositorys por unos SQL se puede
-arreglar sin modificar mucho los controllers o servicios)
+Las relaciones definidas no tienen integridad referencial, solo sirven para unir los modelos. Esto significa que aunque un paquete pertenece a un 
+cliente, a la hora de crear un paquete se puede ingresar un username de cliente inexistente en la base, y la creacion es exitosa de todas formas. Esto 
+se da debido a que la base de datos usada es una noSQL local, con respaldo en un archivo, por cuestiones de simplicidad. Si se usara una base de datos 
+SQL, entonces estos mismos modelos y repositorios deberian poseer integridad referencial. Otra opcion es agregar codigo en las llamadas a API que creen 
+o modifiquen una clave extranjera para controlar que se cumpla la integridad referencial. Sin embargo, ya que es a modo de ejercicio creo que esto no 
+es necesario.
 
 La funcionalidad de cargar de un csv esta realizada rusticamente, por ejemplo, no chequea la integridad del archivo previo a la carga de los paquetes,
 ni realiza un rollback en caso de encontrar un error. Entonces, un archivo que contiene un error cargara los paquetes previos a la linea problematica,
-cuando no deberia modificar la base de datos.
+cuando no deberia modificar la base de datos. Tambien, esta programado para levantar el archivo Paquetes.csv dentro de la carpeta CSV del directorio
+del proyecto. Desde localhost:3000 existe una interfaz para poder subir este csv remotamente.

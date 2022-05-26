@@ -17,13 +17,20 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Planilla} from '../models';
-import {PlanillaRepository} from '../repositories';
+import {Planilla, ItemPlanilla} from '../models';
+import {PlanillaRepository, ItemPlanillaRepository} from '../repositories';
+import {PlanillaService} from '../services';
+import {BindingKey} from '@loopback/core';
+import {injectable, inject,  BindingScope} from '@loopback/core';
+import {CoreTags, asService} from '@loopback/core';
 
 export class PlanillaController {
   constructor(
+  @inject('service.PlanillaService') private planillaService: PlanillaService,
     @repository(PlanillaRepository)
     public planillaRepository : PlanillaRepository,
+	@repository(ItemPlanillaRepository)
+    public itemPlanillaRepository : ItemPlanillaRepository,
   ) {}
 
   @post('/planilla')
@@ -110,6 +117,28 @@ export class PlanillaController {
   ): Promise<Planilla> {
     return this.planillaRepository.findById(id, filter);
   }
+  
+  @post('/planilla/{idpla}/item/{idpaq}')
+    @response(200, {
+    description: 'ItemPlanilla model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(ItemPlanilla, {includeRelations: true}),
+      },
+    },
+  })
+  async createItem(@param.path.string('idpla') id: string, @param.path.string('idpaq') tracking: string): Promise<ItemPlanilla> {
+	let duplicate = await this.itemPlanillaRepository.find({where: {planillaId: id, paqueteId: tracking}})
+	if (duplicate.length == 0)
+	{
+		let pos = await this.itemPlanillaRepository.find({where: {planillaId: id}});
+		return this.itemPlanillaRepository.create({"paqueteId" : tracking, "planillaId" : id, "posicion" : pos.length + 1});
+	}
+	else
+	{
+		throw new Error("Ese paquete ya existe como item de esta planilla");
+	}
+  }
 
   @patch('/planilla/{id}')
   @response(204, {
@@ -129,22 +158,21 @@ export class PlanillaController {
     await this.planillaRepository.updateById(id, planilla);
   }
 
-  @put('/planilla/{id}')
-  @response(204, {
-    description: 'Planilla PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() planilla: Planilla,
-  ): Promise<void> {
-    await this.planillaRepository.replaceById(id, planilla);
-  }
-
   @del('/planilla/{id}')
   @response(204, {
     description: 'Planilla DELETE success',
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.planillaRepository.deleteById(id);
+  }
+  
+  @patch('/planilla/items/{id}')
+  @response(204, {
+    description: 'Planilla PATCH success',
+  })
+  async moverTransito(
+    @param.path.string('id') id: string  ): Promise<Planilla> {
+		
+    return this.planillaService.moverTransito(id);
   }
 }

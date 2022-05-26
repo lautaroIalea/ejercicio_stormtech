@@ -46,7 +46,7 @@ export class Cliente extends Entity {
   })
   direccion: string;
 
-  @hasMany(() => Paquete, {keyTo: 'clienteusername'})
+  @hasMany(() => Paquete)
   paquetes: Paquete[];
 
   constructor(data?: Partial<Cliente>) {

@@ -1,8 +1,9 @@
 import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, HasManyRepositoryFactory} from '@loopback/repository';
+import {DefaultCrudRepository, repository, HasManyThroughRepositoryFactory} from '@loopback/repository';
 import {DbDataSource} from '../datasources';
-import {Planilla, PlanillaRelations, ItemPlanilla} from '../models';
+import {Planilla, PlanillaRelations, Paquete, ItemPlanilla} from '../models';
 import {ItemPlanillaRepository} from './item-planilla.repository';
+import {PaqueteRepository} from './paquete.repository';
 
 export class PlanillaRepository extends DefaultCrudRepository<
   Planilla,
@@ -10,13 +11,16 @@ export class PlanillaRepository extends DefaultCrudRepository<
   PlanillaRelations
 > {
 
-  public readonly Items: HasManyRepositoryFactory<ItemPlanilla, typeof Planilla.prototype.numero_planilla>;
+  public readonly paquetes: HasManyThroughRepositoryFactory<Paquete, typeof Paquete.prototype.tracking,
+          ItemPlanilla,
+          typeof Planilla.prototype.numero_planilla
+        >;
 
   constructor(
-    @inject('datasources.DB') dataSource: DbDataSource, @repository.getter('ItemPlanillaRepository') protected itemPlanillaRepositoryGetter: Getter<ItemPlanillaRepository>,
+    @inject('datasources.DB') dataSource: DbDataSource, @repository.getter('ItemPlanillaRepository') protected itemPlanillaRepositoryGetter: Getter<ItemPlanillaRepository>, @repository.getter('PaqueteRepository') protected paqueteRepositoryGetter: Getter<PaqueteRepository>,
   ) {
     super(Planilla, dataSource);
-    this.Items = this.createHasManyRepositoryFactoryFor('Items', itemPlanillaRepositoryGetter,);
-    this.registerInclusionResolver('Items', this.Items.inclusionResolver);
+    this.paquetes = this.createHasManyThroughRepositoryFactoryFor('paquetes', paqueteRepositoryGetter, itemPlanillaRepositoryGetter,);
+    this.registerInclusionResolver('paquetes', this.paquetes.inclusionResolver);
   }
 }
